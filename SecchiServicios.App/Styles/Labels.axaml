@@ -1,0 +1,96 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Label Styles -->
+    <Style Selector="Label">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+
+    </Style>
+    
+    <Style Selector="Label.alt">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonBackground}"></Setter>
+    </Style>
+
+    <Style Selector="Label.h1">
+        <Setter Property="FontSize" Value="34" />
+        <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style Selector="Label.h2">
+        <Setter Property="Padding" Value="0 0 8 0" />
+        <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+    <Style Selector="Label.h3">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <Style Selector="Label.sub1">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0 -5 0 0" />
+        <Setter Property="Foreground" Value="{DynamicResource AlertButtonBackgroundGradient}" />
+    </Style>
+
+    <Style Selector="Label.sub2">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0 -5 0 0" />
+    </Style>
+
+    <Style Selector="Label.success">
+        <Setter Property="Foreground" Value="{DynamicResource SuccessGradient}" />
+    </Style>
+    
+    <Style Selector="Label.danger">
+        <Setter Property="Foreground" Value="{DynamicResource DangerGradient}"></Setter>
+    </Style>
+
+    <Style Selector="Label.icon, Label.icon-only">
+        <Setter Property="FontFamily" Value="{DynamicResource PhosphorFill}" />
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="Padding" Value="0 2.5 -0.4 3" />
+        <Setter Property="Margin" Value="0 0 5 0" />
+    </Style>
+
+    <Style Selector="Label.icon-only">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    
+    <Style Selector="Button.tile:pointerover > StackPanel > Label">
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.Normal:pointerover > StackPanel > Label">
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.alt:pointerover > StackPanel > Label">
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.danger:pointerover > StackPanel > Label">
+        <Setter Property="Foreground" Value="{DynamicResource DangerHoverGradient}"></Setter>
+    </Style>
+
+    <Style Selector="Label.subtle-hover">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryHoverButtonBackground}" />
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}" />
+        </Style>
+    </Style>
+</Styles>

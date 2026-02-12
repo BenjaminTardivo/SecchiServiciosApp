@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        xmlns:converters="clr-namespace:SecchiServicios.App.Converters"
+        Width="260" Height="280"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.CondicionesIVAWindow"
+        x:DataType="vm:CondicionesIVAWindowViewModel"
+        Title="CondicionesIVAWindow">
+    <Window.Resources>
+        <converters:CamelCaseToWordsConverter x:Key="CamelCaseConverter"/>
+    </Window.Resources>
+    
+    <Border CornerRadius="6"
+            BorderThickness="4"
+            BorderBrush="{DynamicResource PrimaryButtonForeground}"
+            Padding="10"
+            Margin="15">
+        <ListBox ItemsSource="{Binding CondicionesIVA}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource CamelCaseConverter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Border>
+    
+    
+    
+</Window>

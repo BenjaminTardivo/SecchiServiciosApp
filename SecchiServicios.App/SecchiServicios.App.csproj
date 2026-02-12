@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.10" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.10" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.10" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.10" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.10">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SecchiServicios.Core\SecchiServicios.Core.csproj" />
+    <ProjectReference Include="..\SecchiServicios.Data\SecchiServicios.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Windows\MainWindow.axaml.cs">
+      <DependentUpon>MainWindow.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\box.png" />
+    <AvaloniaResource Include="Assets\Images\box.png" />
+    <None Remove="Assets\Images\commerce.png" />
+    <AvaloniaResource Include="Assets\Images\commerce.png" />
+    <None Remove="Assets\Images\customer.png" />
+    <AvaloniaResource Include="Assets\Images\customer.png" />
+    <None Remove="Assets\Images\downloads.png" />
+    <AvaloniaResource Include="Assets\Images\downloads.png" />
+    <None Remove="Assets\Images\inbox.png" />
+    <AvaloniaResource Include="Assets\Images\inbox.png" />
+    <None Remove="Assets\Images\list.png" />
+    <AvaloniaResource Include="Assets\Images\list.png" />
+    <None Remove="Assets\Images\map.png" />
+    <AvaloniaResource Include="Assets\Images\map.png" />
+    <None Remove="Assets\Images\state.png" />
+    <AvaloniaResource Include="Assets\Images\state.png" />
+    <None Remove="Assets\Fonts\Akko-Pro-Bold.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Akko-Pro-Bold.ttf" />
+    <None Remove="Assets\Fonts\Akko-Pro-Regular.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Akko-Pro-Regular.ttf" />
+    <None Remove="Assets\Fonts\Phosphor.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Phosphor.ttf" />
+    <None Remove="Assets\Fonts\Phosphor-Fill.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Phosphor-Fill.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Black.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Black.ttf" />
+    <None Remove="Assets\Fonts\Nunito-BlackItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-BlackItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Bold.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Bold.ttf" />
+    <None Remove="Assets\Fonts\Nunito-BoldItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-ExtraBold.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-ExtraBold.ttf" />
+    <None Remove="Assets\Fonts\Nunito-ExtraBoldItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-ExtraBoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-ExtraLight.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-ExtraLight.ttf" />
+    <None Remove="Assets\Fonts\Nunito-ExtraLightItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-ExtraLightItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Italic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Italic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Light.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Light.ttf" />
+    <None Remove="Assets\Fonts\Nunito-LightItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-LightItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Medium.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Medium.ttf" />
+    <None Remove="Assets\Fonts\Nunito-MediumItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-MediumItalic.ttf" />
+    <None Remove="Assets\Fonts\Nunito-Regular.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-Regular.ttf" />
+    <None Remove="Assets\Fonts\Nunito-SemiBold.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-SemiBold.ttf" />
+    <None Remove="Assets\Fonts\Nunito-SemiBoldItalic.ttf" />
+    <AvaloniaResource Include="Assets\Fonts\Nunito-SemiBoldItalic.ttf" />
+    <None Remove="Assets\Images\Secchi200x110.png" />
+    <AvaloniaResource Include="Assets\Images\Secchi200x110.png" />
+    <None Remove="Assets\Images\Secchi_Horizontal.png" />
+    <AvaloniaResource Include="Assets\Images\Secchi_Horizontal.png" />
+    <None Remove="Assets\Images\Secchi.png" />
+    <AvaloniaResource Include="Assets\Images\Secchi.png" />
+  </ItemGroup>
+</Project>

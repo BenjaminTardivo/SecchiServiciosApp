@@ -1,0 +1,95 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel Spacing="20" Margin="20" Background="DarkGray">
+            <Button Classes="tile">
+                <StackPanel HorizontalAlignment="Center" Spacing="5">
+                    <Label Classes="icon" Content="&#xe3EC;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Recibos" HorizontalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            <Button Classes="Normal">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Classes="icon" Content="&#xe3EC;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Recibos" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            <Button Classes="alt">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Classes="icon alt" Content="&#xe3EC;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 alt" Content="Recibos" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            <Button Classes="danger">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Classes="icon danger" Content="&#xe3EC;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Recibos" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Design.PreviewWith>
+
+    
+    <Style Selector=":is(Button)">
+        <Setter Property="FontSize" Value="17"></Setter>
+        <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Padding" Value="9 5.5 9.2 5.5"></Setter>
+        <Setter Property="BorderThickness" Value="3"></Setter>
+        <Setter Property="Effect">
+            <DropShadowEffect BlurRadius="30" Opacity="0.3"></DropShadowEffect>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Button.tile">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="110"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).tile:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverButtonBackground}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.Normal">
+        <Setter Property="CornerRadius" Value="12"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="BorderThickness" Value="3"></Setter>
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).Normal:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverButtonBackground}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.alt">
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonBackground}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).alt:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverButtonBackground}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHoverButtonBackground}"></Setter>
+    </Style>
+    
+    <Style Selector="Button.danger">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerGradient}"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).danger:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource DangerHoverGradient}"></Setter>
+    </Style>
+</Styles>

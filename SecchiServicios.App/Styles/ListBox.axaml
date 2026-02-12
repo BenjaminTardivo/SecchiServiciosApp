@@ -1,0 +1,44 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Border CornerRadius="6"
+                    BorderThickness="4"
+                    BorderBrush="{DynamicResource PrimaryButtonForeground}"
+                    Padding="10"
+                    Margin="15">
+                <ListBox ItemsSource="Juan miguel sosa">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="salame"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundGradient}"></Setter>
+    </Style>
+    
+    
+    <Style Selector="ListBoxItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverButtonBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonForeground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonBackground}"/>
+    </Style>
+</Styles>

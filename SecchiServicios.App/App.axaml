@@ -1,0 +1,93 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SecchiServicios.App.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <StyleInclude Source="Styles/Buttons.axaml"></StyleInclude>
+        <StyleInclude Source="Styles/Labels.axaml"></StyleInclude>
+        <StyleInclude Source="Styles/ListBox.axaml"></StyleInclude>
+        <StyleInclude Source="Styles/Datagrid.axaml"></StyleInclude>
+    </Application.Styles>
+             
+    <Application.Resources>
+        
+        
+        <!-- Colors/Brushes -->
+        <SolidColorBrush x:Key="PrimaryButtonBackground">#b7b7b6</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryButtonForeground">#3e4093</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="PrimaryBackGround">#b5b5b6</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryBackground">#c6c7e2</SolidColorBrush>
+        
+        <LinearGradientBrush x:Key="PrimaryBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#cbcacb"></GradientStop>
+            <GradientStop Offset="1" Color="#b7b7b7"></GradientStop>
+        </LinearGradientBrush>
+        
+        <SolidColorBrush x:Key="PrimaryHoverButtonBackground">#cbcbca</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimarHoverButtonText">#6c71b2</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="OutlineButtonForeground">#afb1de</SolidColorBrush>
+        
+        <LinearGradientBrush x:Key="PrimaryButtonBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#00ffff"></GradientStop>
+            <GradientStop Offset="1" Color="#ff00ff"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="AlertButtonBackgroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#ffff00"></GradientStop>
+            <GradientStop Offset="1" Color="#ff8800"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="AlertHoverGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#ffff00"></GradientStop>
+            <GradientStop Offset="1" Color="#ffff00"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="PrimaryButtonHoverGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#00ffff"></GradientStop>
+            <GradientStop Offset="1" Color="#00ffff"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="DangerGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#ff0000"></GradientStop>
+            <GradientStop Offset="1" Color="#aa0000"></GradientStop>
+        </LinearGradientBrush>
+         
+        <LinearGradientBrush x:Key="DangerHoverGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#ff4444"></GradientStop>
+            <GradientStop Offset="1" Color="#bb1111"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="SuccessGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#00ff00"></GradientStop>
+            <GradientStop Offset="1" Color="#009900"></GradientStop>
+        </LinearGradientBrush>
+         
+        <LinearGradientBrush x:Key="SuccessHoverGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#44ff44"></GradientStop>
+            <GradientStop Offset="1" Color="#55cc55"></GradientStop>
+        </LinearGradientBrush>
+        
+        <LinearGradientBrush x:Key="ActiveGradientText" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#7C59CD"></GradientStop>
+            <GradientStop Offset="1" Color="#7C59CD"></GradientStop>
+        </LinearGradientBrush>
+         
+        <LinearGradientBrush x:Key="ActiveGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#6633DD"></GradientStop>
+            <GradientStop Offset="1" Color="#431B9F"></GradientStop>
+        </LinearGradientBrush>
+        
+        <!-- Fonts -->
+        <FontFamily x:Key="AkkoPro">/Assets/Fonts/Akko-Pro-Regular.ttf#Akko Pro, Regular</FontFamily>
+        <FontFamily x:Key="AkkoProBold">/Assets/Fonts/Akko-Pro-Bold.ttf#Akko Pro, Bold</FontFamily>
+        <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor, Regular</FontFamily>
+        <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill, Regular</FontFamily>
+        <FontFamily x:Key="Nunito">/Assets/Fonts#Nunito</FontFamily>
+    </Application.Resources>
+</Application>

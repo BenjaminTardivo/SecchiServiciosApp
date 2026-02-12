@@ -1,0 +1,61 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        xmlns:converters="clr-namespace:SecchiServicios.App.Converters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.ClienteWindow"
+        x:DataType="vm:ClientesWindowViewModel"
+        Title="ClienteWindow">
+    
+    <Window.Resources>
+        <converters:CamelCaseToWordsConverter x:Key="CamelCaseConverter"/>
+    </Window.Resources>
+    
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+                  CanUserResizeColumns="True" CanUserSortColumns="True"
+                  ItemsSource="{Binding Clientes}"
+                  SelectionChanged="DataGrid_OnSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="DNI" Binding="{Binding DNI}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion.DireccionCompleta}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vendedor" Binding="{Binding Vendedor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Condicion IVA" Binding="{Binding CondicionIva, Converter={StaticResource CamelCaseConverter}}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <Button Classes="Normal" Command="{Binding NewClienteCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe2F8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Añadir Cliente" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="alt" Command="{Binding SaveChangesCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon alt" Content="&#xe248;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 alt" Content="Guardar Cambios" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="danger" Command="{Binding BorrarClientesCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4A6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Borrar Cliente" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="Normal">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe432;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Filtrar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

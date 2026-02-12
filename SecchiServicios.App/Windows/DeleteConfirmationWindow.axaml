@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        Width="400" Height="180"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.DeleteConfirmationWindow"
+        x:DataType="vm:DeleteWindowViewModel"
+        Title="DeleteConfirmationWindow">
+    
+    <Design.DataContext>
+        <vm:DeleteWindowViewModel/>
+    </Design.DataContext>
+    
+    <StackPanel Margin="20" Spacing="14" HorizontalAlignment="Center">
+        <TextBlock Text="{Binding Message}" HorizontalAlignment="Center"
+                   FontWeight="Bold" FontSize="25" TextWrapping="WrapWithOverflow" TextAlignment="Center" Foreground="Black"/>
+        
+        <StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
+            <Button Classes="Normal" VerticalAlignment="Bottom" Command="{Binding ConfirmCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xeba6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Confirmar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="danger" VerticalAlignment="Bottom" Command="{Binding CancelCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4f8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Cancelar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

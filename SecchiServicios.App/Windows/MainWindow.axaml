@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:SecchiServicios.App.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="SecchiServicios - Facturacion">
+        <ScrollViewer Background="{DynamicResource PrimaryBackgroundGradient}">
+                <StackPanel>
+                        
+                        <!-- Recibos -->
+                        <Border CornerRadius="6" BorderThickness="3" BorderBrush="{DynamicResource PrimaryButtonForeground}" 
+                                Margin="15" Height="165" Width="700" 
+                                Background="{DynamicResource PrimaryBackGround}">
+                                <StackPanel Margin="20" Spacing="24" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button Classes="tile">
+                                                <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                        <Label Classes="icon" Content="&#xe3EC;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                                                        <Label Classes="h3" Content="Recibos" HorizontalAlignment="Center"></Label>
+                                                </StackPanel>
+                                        </Button>
+                                        <Button Classes="tile">
+                                                <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                        <Label HorizontalAlignment="Center" Classes="icon" Content="&#xE00C;" FontSize="50" Padding="5 0 0 0"></Label>
+                                                        <Label Classes="h3" Content="Listado de recibos" HorizontalAlignment="Center"></Label>
+                                                </StackPanel>
+                                        </Button>
+                                        <Button Classes="tile">
+                                                <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                        <Label Classes="icon" Content="&#xe232;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                                                        <Label Classes="h3" Content="Reemision de recibos" HorizontalAlignment="Center"></Label>
+                                                </StackPanel>
+                                        </Button>
+                                </StackPanel>
+                        </Border>
+                        
+                        <!-- Administrar -->
+                        <Border CornerRadius="6" BorderThickness="3" BorderBrush="{DynamicResource PrimaryButtonForeground}" 
+                                Margin="15" Height="330" Width="700" 
+                                Background="{DynamicResource PrimaryBackGround}">
+                                <StackPanel VerticalAlignment="Center">
+                                        <StackPanel Margin="20" Spacing="24" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Classes="tile" Command="{Binding OpenClientesWindowCommand}">
+                                                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                                <Label Classes="icon" Content="&#xe4D6;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                                                                <Label Classes="h3" Content="Clientes" HorizontalAlignment="Center"></Label>
+                                                        </StackPanel>
+                                                </Button>
+                                                <Button Classes="tile">
+                                                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                                <Label HorizontalAlignment="Center" Classes="icon" Content="&#xe390;" FontSize="50" Padding="5 0 0 0"></Label>
+                                                                <Label Classes="h3" Content="Productos y Servicios" HorizontalAlignment="Center"></Label>
+                                                        </StackPanel>
+                                                </Button>
+                                                <Button Classes="tile">
+                                                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                                <Label Classes="icon" Content="&#xeA6A;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                                                                <Label Classes="h3" Content="Localidades" HorizontalAlignment="Center"></Label>
+                                                        </StackPanel>
+                                                </Button>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="20" Spacing="24" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Classes="tile" Command="{Binding OpenProvinciasWindowCommand}">
+                                                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                                <Label Classes="icon" Content="&#xe28C;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
+                                                                <Label Classes="h3" Content="Provincias" HorizontalAlignment="Center"></Label>
+                                                        </StackPanel>
+                                                </Button>
+                                                <Button Classes="tile" Command="{Binding OpenCondicionesIVAWindowCommand}">
+                                                        <StackPanel HorizontalAlignment="Center" Spacing="5">
+                                                                <Label HorizontalAlignment="Center" Classes="icon" Content="&#xE2F2;" FontSize="50" Padding="5 0 0 0"></Label>
+                                                                <Label Classes="h3" Content="Condiciones IVA" HorizontalAlignment="Center"></Label>
+                                                        </StackPanel>
+                                                </Button>
+                                                <Image Source="../Assets/Images/Secchi_Horizontal.png"></Image>
+                                                
+                                        </StackPanel>
+                                </StackPanel>
+                        </Border>
+                </StackPanel>
+                
+                
+        </ScrollViewer>
+
+</Window>

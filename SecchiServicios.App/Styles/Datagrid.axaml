@@ -1,0 +1,89 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+
+        x:DataType="vm:StylesViewModel">
+    
+    
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Border.DataContext>
+                <vm:StylesViewModel></vm:StylesViewModel>
+            </Border.DataContext>
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="DNI"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Direccion"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vendedor"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Condicion IVA"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackgroundGradient}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="RowBackground" Value="{DynamicResource SecondaryBackground}"/>
+    </Style>
+    
+    <Style Selector="DataGridRow">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+
+    <Style Selector="DataGridRow:pointerover">
+        <Setter Property="Background" Value="{DynamicResource OutlineButtonForeground}"/>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+
+    <Style Selector="DataGridRow:selected">
+        <Setter Property="Background" Value="{DynamicResource OutlineButtonForeground}"/>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+    
+    <Style Selector="DataGridRow:editing /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource OutlineButtonForeground}"/>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+    
+    <Style Selector="DataGridCell">
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style Selector="DataGrid DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+        <Setter Property="Fill" Value="{DynamicResource OutlineButtonForeground}"></Setter>
+    </Style>
+    
+    <Style Selector="DataGridCell TextBox">
+        <Setter Property="Background" Value="#CFEAFF"/>
+        <Setter Property="BorderBrush" Value="#3A8FD8"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="DataGridCell:focus">
+        <Setter Property="Background" Value="#CFEAFF"/>
+        <Setter Property="BorderBrush" Value="#3A8FD8"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    
+    <Style Selector="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource PrimaryButtonForeground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonBackground}"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="BorderThickness" Value="0,0,0,2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"/>
+    </Style>
+
+</Styles>
