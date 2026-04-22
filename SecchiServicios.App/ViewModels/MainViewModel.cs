@@ -55,4 +55,28 @@ public partial class MainViewModel : ObservableObject
         
         window.ShowDialog(owner);
     }
+
+    [RelayCommand]
+    private void OpenServiciosWindow()
+    {
+        var window = _serviceProvider.GetRequiredService<ProductoServicioWindow>();
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
+    }
+
+    [RelayCommand]
+    private void OpenLocalidadWindow()
+    {
+        var window = _serviceProvider.GetRequiredService<LocalidadesWindow>();
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
+    }
 }

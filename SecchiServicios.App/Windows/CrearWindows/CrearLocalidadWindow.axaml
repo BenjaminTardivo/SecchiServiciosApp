@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels.CrearViewModels"
+        xmlns:converters="clr-namespace:SecchiServicios.App.Converters"
+        Width="500" Height="600"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.CrearWindows.CrearLocalidadWindow"
+        x:DataType="vm:CrearLocalidadViewModel"
+        Title="CrearLocalidadWindow">
+    
+    <Window.Resources>
+        <converters:CamelCaseToWordsConverter x:Key="CamelCaseConverter"/>
+    </Window.Resources>
+    
+    <ScrollViewer>
+        <Border BorderBrush="{DynamicResource PrimaryButtonForeground}" Margin="20" BorderThickness="3" CornerRadius="6">
+            <StackPanel Margin="20" Spacing="12">
+                <TextBlock Text="Crear Nueva Localidad" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
+                <TextBox Watermark="Nombre" Text="{Binding Nombre}"/>
+                <TextBox Watermark="Codigo Postal" Text="{Binding CodigoPostal}"/>
+                <AutoCompleteBox Watermark="Provincias" ItemsSource="{Binding}"
+                                 SelectedItem="{Binding ProvinciaSeleccionada}" FilterMode="Contains">
+                    <AutoCompleteBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource CamelCaseConverter}}"></TextBlock>
+                        </DataTemplate>
+                    </AutoCompleteBox.ItemTemplate>
+                </AutoCompleteBox>
+                
+                <Button Classes="alt" VerticalAlignment="Bottom" Margin="0 40 0 0" Command="{Binding CrearCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                        <Label Classes="icon alt" Content="&#xe2f8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Classes="h3 alt" Content="Añadir Cliente" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</Window>

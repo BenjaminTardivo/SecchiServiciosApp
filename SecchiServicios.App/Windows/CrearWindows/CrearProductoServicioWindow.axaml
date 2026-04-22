@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels.CrearViewModels"
+        xmlns:converters="clr-namespace:SecchiServicios.App.Converters"
+        Width="500" Height="560"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.CrearWindows.CrearProductoServicioWindow"
+        x:DataType="vm:CrearProductoServicioViewModel"
+        Title="CrearProductoServicioWindow">
+    <Window.Resources>
+        <converters:CamelCaseToWordsConverter x:Key="CamelcaseToWordsConverter"/>
+    </Window.Resources>
+    
+    <ScrollViewer>
+        <Border BorderBrush="{DynamicResource PrimaryButtonForeground}" Margin="20" BorderThickness="3" CornerRadius="6">
+            <StackPanel Margin="20" Spacing="12">
+                <TextBlock Text="Crear Nuevo Producto/Servicio" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
+                <TextBox Watermark="Nombre" Text="{Binding Nombre}"/>
+                <TextBox Watermark="Descripcion" Text="{Binding Descripcion}"/>
+                <TextBox Watermark="Importe" Text="{Binding Importe}"/>
+                <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding tipo}"
+                          SelectedItem="{Binding TipoSeleccionado}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource CamelcaseToWordsConverter}}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                
+                <Button Classes="alt" VerticalAlignment="Bottom" Margin="0 40 0 0" Command="{Binding CreateCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                        <Label Classes="icon alt" Content="&#xe2f8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Classes="h3 alt" Content="Crear" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</Window>

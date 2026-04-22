@@ -157,9 +157,8 @@ public partial class ClientesWindowViewModel : ObservableObject
     private async Task BorrarClientes()
     {
         var cantidad = SelectedClientes.Count;
-        Debug.Print($"Borrar {cantidad} Clientes");
         
-        if (SelectedClientes.Count == 0)
+        if (cantidad == 0)
         {
             return;
         }

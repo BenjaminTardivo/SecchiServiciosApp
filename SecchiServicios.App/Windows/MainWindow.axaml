@@ -49,13 +49,13 @@
                                                                 <Label Classes="h3" Content="Clientes" HorizontalAlignment="Center"></Label>
                                                         </StackPanel>
                                                 </Button>
-                                                <Button Classes="tile">
+                                                <Button Classes="tile" Command="{Binding OpenServiciosWindowCommand}">
                                                         <StackPanel HorizontalAlignment="Center" Spacing="5">
                                                                 <Label HorizontalAlignment="Center" Classes="icon" Content="&#xe390;" FontSize="50" Padding="5 0 0 0"></Label>
                                                                 <Label Classes="h3" Content="Productos y Servicios" HorizontalAlignment="Center"></Label>
                                                         </StackPanel>
                                                 </Button>
-                                                <Button Classes="tile">
+                                                <Button Classes="tile" Command="{Binding OpenLocalidadWindowCommand}">
                                                         <StackPanel HorizontalAlignment="Center" Spacing="5">
                                                                 <Label Classes="icon" Content="&#xeA6A;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
                                                                 <Label Classes="h3" Content="Localidades" HorizontalAlignment="Center"></Label>

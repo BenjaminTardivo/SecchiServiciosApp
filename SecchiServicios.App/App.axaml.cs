@@ -41,6 +41,8 @@ public partial class App : Application
         
         // Repos
         collection.AddScoped<IRepository<Cliente>, ClienteRepository>();
+        collection.AddScoped<IRepository<ProductoServicio>, ProductoServicioRepository>();
+        collection.AddScoped<IRepository<Localidad>, LocalidadRepository>();
         
         // ViewModels
         collection.AddSingleton<MainViewModel>();
@@ -49,6 +51,10 @@ public partial class App : Application
         collection.AddTransient<CrearClienteWindowViewModel>();
         collection.AddTransient<ProvinciasViewModel>();
         collection.AddTransient<DeleteWindowViewModel>();
+        collection.AddTransient<ProductoServicioViewModel>();
+        collection.AddTransient<CrearProductoServicioViewModel>();
+        collection.AddTransient<LocalidadesViewModel>();
+        collection.AddTransient<CrearLocalidadViewModel>();
         
         // Windows
         collection.AddSingleton<MainWindow>();
@@ -57,6 +63,10 @@ public partial class App : Application
         collection.AddTransient<CrearClienteWindow>();
         collection.AddTransient<ProvinciasWindow>();
         collection.AddTransient<DeleteConfirmationWindow>();
+        collection.AddTransient<ProductoServicioWindow>();
+        collection.AddTransient<CrearProductoServicioWindow>();
+        collection.AddTransient<LocalidadesWindow>();
+        collection.AddTransient<CrearLocalidadWindow>();
 
         //factories
         collection.AddTransient<Func<CrearClienteWindow>>(sp =>
@@ -66,6 +76,8 @@ public partial class App : Application
             var vm = new DeleteWindowViewModel(cantidad);
             return new DeleteConfirmationWindow(vm);
         });
+        collection.AddTransient<Func<CrearProductoServicioWindow>>(sp =>
+            () => sp.GetRequiredService<CrearProductoServicioWindow>());
         
         
         ServiceProvider = collection.BuildServiceProvider();
