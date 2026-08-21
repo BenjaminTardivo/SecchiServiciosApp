@@ -79,4 +79,16 @@ public partial class MainViewModel : ObservableObject
         
         window.ShowDialog(owner);
     }
+
+    [RelayCommand]
+    private void OpenReciboWindow()
+    {
+        var window = _serviceProvider.GetRequiredService<RecibosWindow>();
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
+    }
 }

@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProductoServicio> ProductosServicios { get; set; }
     public DbSet<Localidad> Localidades { get; set; }
     public DbSet<Direccion> Direcciones { get; set; }
+    public DbSet<Recibo> Recibos { get; set; }
     
     public string DbPath { get; }
 

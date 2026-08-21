@@ -1,0 +1,46 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Height="400">
+            <Border CornerRadius="6"
+                    BorderThickness="4"
+                    BorderBrush="{DynamicResource PrimaryButtonForeground}"
+                    Padding="10"
+                    Margin="15">
+                <DatePicker></DatePicker>
+            </Border>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="DatePicker">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackGround}"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="BorderThickness" Value="1.5"></Setter>
+    </Style>
+    
+    <Style Selector="DatePicker /template/ ContentPresenter Button">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"/>
+    </Style>
+    
+    <Style Selector="DatePickerPresenter Button">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackGround}"></Setter>
+    </Style>
+    
+    <Style Selector="DatePickerPresenter Calendar Button">
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForeground}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackGround}"></Setter>
+    </Style>
+    
+    <Style Selector="DateTimePickerPanel">
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackGround}"></Setter>
+    </Style>
+    
+    <Style Selector="DateTimePickerPanel:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryHoverButtonBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
+    </Style>
+    
+</Styles>

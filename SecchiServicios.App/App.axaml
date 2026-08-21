@@ -11,6 +11,7 @@
         <StyleInclude Source="Styles/Labels.axaml"></StyleInclude>
         <StyleInclude Source="Styles/ListBox.axaml"></StyleInclude>
         <StyleInclude Source="Styles/Datagrid.axaml"></StyleInclude>
+        <StyleInclude Source="Styles/DatePicker.axaml"></StyleInclude>
     </Application.Styles>
              
     <Application.Resources>

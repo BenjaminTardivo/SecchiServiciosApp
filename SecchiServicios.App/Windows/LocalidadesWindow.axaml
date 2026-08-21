@@ -2,8 +2,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        xmlns:converters="clr-namespace:SecchiServicios.App.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
         x:Class="SecchiServicios.App.Windows.LocalidadesWindow"
+        x:DataType="vm:LocalidadesViewModel"
         Title="LocalidadesWindow">
-    Welcome to Avalonia!
+    <Window.Resources>
+        <converters:CamelCaseToWordsConverter x:Key="CamelCaseConverter"/>
+    </Window.Resources>
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+                  CanUserResizeColumns="True" CanUserSortColumns="True"
+                  ItemsSource="{Binding Localidades}"
+                  SelectionChanged="DataGrid_OnSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="CP" Binding="{Binding CodigoPostal}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Provincia" Binding="{Binding Provincia, Converter={StaticResource CamelCaseConverter}}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <Button Classes="Normal" Command="{Binding NewLocalidadCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe2F8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Añadir Localidad" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="alt" Command="{Binding SaveChangesCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon alt" Content="&#xe248;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 alt" Content="Guardar Cambios" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="danger" Command="{Binding BorrarLocalidadesCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4A6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Borrar Localidad" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="Normal">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe432;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Filtrar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
 </Window>

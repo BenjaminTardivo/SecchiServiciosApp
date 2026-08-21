@@ -20,6 +20,9 @@ public class GenericRepository<T> : IRepository<T> where T : class
     public Task<List<T>> GetAllAsync()
         => _dbSet.ToListAsync();
     
+    public virtual IQueryable<T> Query()
+        => _dbSet.AsQueryable();
+    
 
     public async Task AddAsync(T item)
     {

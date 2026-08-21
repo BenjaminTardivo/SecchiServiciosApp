@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        x:Class="SecchiServicios.App.Windows.RecibosWindow"
+        x:DataType="vm:RecibosViewModel"
+        Title="RecibosWindow">
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+                  CanUserResizeColumns="True" CanUserSortColumns="True"
+                  SelectionChanged="DataGrid_OnSelectionChanged"
+                  ItemsSource="{Binding Recibos}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nombre}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Producto/Servicio" Binding="{Binding ProductoServicio.Nombre}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Monto" Binding="{Binding Total}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <Button Classes="Normal" Command="{Binding NewReciboCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe2F8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Nuevo Recibo" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="alt" Command="{Binding SaveChangesCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon alt" Content="&#xe248;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 alt" Content="Guardar Cambios" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="danger" Command="{Binding BorrarRecibosCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4A6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Borrar Recibo" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="Normal">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe432;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Filtrar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

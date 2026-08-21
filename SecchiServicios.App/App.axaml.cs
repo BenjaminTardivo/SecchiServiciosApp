@@ -13,6 +13,7 @@ using SecchiServicios.Core.Models;
 using SecchiServicios.Data.Data;
 using SecchiServicios.Data.Interfaces;
 using SecchiServicios.Data.Repositories;
+using SecchiServicios.Data.Services;
 
 namespace SecchiServicios.App;
 
@@ -38,11 +39,14 @@ public partial class App : Application
         
         collection.AddScoped(typeof(GenericRepository<>));
         
+        //Services
+        collection.AddScoped<ReciboService>();
         
         // Repos
         collection.AddScoped<IRepository<Cliente>, ClienteRepository>();
         collection.AddScoped<IRepository<ProductoServicio>, ProductoServicioRepository>();
         collection.AddScoped<IRepository<Localidad>, LocalidadRepository>();
+        collection.AddScoped<IRepository<Recibo>, ReciboRepository>();
         
         // ViewModels
         collection.AddSingleton<MainViewModel>();
@@ -55,6 +59,8 @@ public partial class App : Application
         collection.AddTransient<CrearProductoServicioViewModel>();
         collection.AddTransient<LocalidadesViewModel>();
         collection.AddTransient<CrearLocalidadViewModel>();
+        collection.AddTransient<RecibosViewModel>();
+        collection.AddTransient<CrearReciboViewModel>();
         
         // Windows
         collection.AddSingleton<MainWindow>();
@@ -67,6 +73,8 @@ public partial class App : Application
         collection.AddTransient<CrearProductoServicioWindow>();
         collection.AddTransient<LocalidadesWindow>();
         collection.AddTransient<CrearLocalidadWindow>();
+        collection.AddTransient<RecibosWindow>();
+        collection.AddTransient<CrearReciboWindow>();
 
         //factories
         collection.AddTransient<Func<CrearClienteWindow>>(sp =>
@@ -78,6 +86,10 @@ public partial class App : Application
         });
         collection.AddTransient<Func<CrearProductoServicioWindow>>(sp =>
             () => sp.GetRequiredService<CrearProductoServicioWindow>());
+        collection.AddTransient<Func<CrearLocalidadWindow>>(sp =>
+            () => sp.GetRequiredService<CrearLocalidadWindow>());
+        collection.AddTransient<Func<CrearReciboWindow>>(sp =>
+            () => sp.GetRequiredService<CrearReciboWindow>());
         
         
         ServiceProvider = collection.BuildServiceProvider();

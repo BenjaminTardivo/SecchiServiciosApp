@@ -20,7 +20,7 @@
                 <TextBlock Text="Crear Nueva Localidad" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
                 <TextBox Watermark="Nombre" Text="{Binding Nombre}"/>
                 <TextBox Watermark="Codigo Postal" Text="{Binding CodigoPostal}"/>
-                <AutoCompleteBox Watermark="Provincias" ItemsSource="{Binding}"
+                <AutoCompleteBox Watermark="Provincias" ItemsSource="{Binding provinciasList}"
                                  SelectedItem="{Binding ProvinciaSeleccionada}" FilterMode="Contains">
                     <AutoCompleteBox.ItemTemplate>
                         <DataTemplate>
@@ -32,7 +32,7 @@
                 <Button Classes="alt" VerticalAlignment="Bottom" Margin="0 40 0 0" Command="{Binding CrearCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                         <Label Classes="icon alt" Content="&#xe2f8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-                        <Label Classes="h3 alt" Content="Añadir Cliente" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Label Classes="h3 alt" Content="Crear Localidad" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     </StackPanel>
                 </Button>
             </StackPanel>

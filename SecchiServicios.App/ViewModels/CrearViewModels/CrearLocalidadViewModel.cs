@@ -18,7 +18,7 @@ public partial class CrearLocalidadViewModel : ObservableObject
 
     public Provincias[] provinciasList { get; } = Enum.GetValues<Provincias>();
     
-    public Action<Localidad> OnClienteCreado {get; set;}
+    public Action<Localidad> OnLocalidadCreada {get; set;}
 
     public CrearLocalidadViewModel(IRepository<Localidad> localidadRepository)
     {
@@ -41,6 +41,6 @@ public partial class CrearLocalidadViewModel : ObservableObject
         
         await _localidadRepository.AddAsync(newLocalidad);
         
-        OnClienteCreado?.Invoke(newLocalidad);
+        OnLocalidadCreada?.Invoke(newLocalidad);
     }
 }

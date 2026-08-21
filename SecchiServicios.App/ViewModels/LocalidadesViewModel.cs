@@ -4,8 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SecchiServicios.App.ViewModels.CrearViewModels;
+using SecchiServicios.App.Windows;
+using SecchiServicios.App.Windows.CrearWindows;
 using SecchiServicios.Core.Models;
 using SecchiServicios.Data.Interfaces;
 using SecchiServicios.Data.Repositories;
@@ -15,11 +19,12 @@ namespace SecchiServicios.App.ViewModels;
 public partial class LocalidadesViewModel : ObservableObject
 {
     private readonly IRepository<Localidad> _localidadRepository;
+    private readonly Func<Window> _crearLocalidadWindowFactory;
     private readonly Func<int, Window> _eliminarWindowFactory;
     
     //Coleccion bindeada al grind
-    public ObservableCollection<Localidad> Localidads { get; set; } = new();
-    private List<Localidad> _originalLocalidads;
+    public ObservableCollection<Localidad> Localidades { get; set; } = new();
+    private List<Localidad> _originalLocalidades;
 
     public ObservableCollection<Localidad> ModifiedLocalidades { get; set; } = new();
     
@@ -37,10 +42,12 @@ public partial class LocalidadesViewModel : ObservableObject
     
     public bool CanDelete => SelectedLocalidades.Count >= 1;
 
-    public LocalidadesViewModel(IRepository<Localidad> localidadRepository,  Func<int, Window> eliminarWindowFactory)
+    public LocalidadesViewModel(IRepository<Localidad> localidadRepository,  Func<int, DeleteConfirmationWindow> eliminarWindowFactory, 
+        Func<CrearLocalidadWindow> crearLocalidadWindowFactory)
     {
         _localidadRepository = localidadRepository;
         _eliminarWindowFactory = eliminarWindowFactory;
+        _crearLocalidadWindowFactory = crearLocalidadWindowFactory;
 
         ModifiedLocalidades.CollectionChanged += (_, __) =>
         {
@@ -54,14 +61,14 @@ public partial class LocalidadesViewModel : ObservableObject
     {
         var localidades = await _localidadRepository.GetAllAsync();
         
-        Localidads.Clear();
+        Localidades.Clear();
 
         foreach (var localidad in localidades)
         {
-            Localidads.Add(localidad);
+            Localidades.Add(localidad);
         }
         
-        _originalLocalidads = localidades
+        _originalLocalidades = localidades
             .Select(localidad => new Localidad
             {
                 Id = localidad.Id,
@@ -74,5 +81,103 @@ public partial class LocalidadesViewModel : ObservableObject
     [RelayCommand]
     private void NewLocalidad()
     {
+        var window = _crearLocalidadWindowFactory();
+        
+        if (window.DataContext is CrearLocalidadViewModel vm)
+        {
+            vm.OnLocalidadCreada = localidad =>
+            {
+                Localidades.Add(localidad);
+
+                _originalLocalidades.Add(new Localidad()
+                {
+                    Id = localidad.Id,
+                    Nombre = localidad.Nombre,
+                    CodigoPostal = localidad.CodigoPostal,
+                    Provincia = localidad.Provincia
+                });
+                
+                window.Close();
+            };
+        }
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
+    }
+
+    [RelayCommand]
+    private async Task SaveChanges()
+    {
+        var modified = GetModifiedLocalidades().ToList();
+
+        if (modified.Any())
+        {
+            await _localidadRepository.UpdateRangeAsync(
+                modified,
+                keySelector: l => l.Id
+                );
+        }
+    }
+
+    private IEnumerable<Localidad> GetModifiedLocalidades()
+    {
+        foreach (var actual in Localidades)
+        {
+            var original = _originalLocalidades.First(o => o.Id == actual.Id);
+
+            if (actual.Nombre != original.Nombre ||
+                actual.CodigoPostal != original.CodigoPostal
+                || actual.Provincia != original.Provincia)
+            {
+                yield return actual;
+            }
+        }
+    }
+
+    [RelayCommand]
+    private async Task BorrarLocalidades()
+    {
+        var cantidad = SelectedLocalidades.Count;
+
+        if (cantidad == 0)
+        {
+            return;
+        }
+        
+        var window = _eliminarWindowFactory(cantidad);
+
+        if (window.DataContext is DeleteWindowViewModel vm)
+        {
+            vm.OnConfirm = async confirmed =>
+            {
+                if (confirmed)
+                {
+                    var localidadesAEliminar = SelectedLocalidades.Cast<Localidad>().ToList();
+
+                    foreach (var localidad in localidadesAEliminar)
+                    {
+                        await _localidadRepository.DeleteAsync(l => l.Id == localidad.Id);
+                        Localidades.Remove(localidad);
+                        _originalLocalidades.RemoveAll(l => l.Id == localidad.Id);
+                    }
+
+                    window.Close();
+                }
+                else
+                {
+                    window.Close();
+                }
+            };
+        }
+        
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
     }
 }

@@ -16,7 +16,7 @@
                                 Margin="15" Height="165" Width="700" 
                                 Background="{DynamicResource PrimaryBackGround}">
                                 <StackPanel Margin="20" Spacing="24" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Button Classes="tile">
+                                        <Button Classes="tile" Command="{Binding OpenReciboWindowCommand}">
                                                 <StackPanel HorizontalAlignment="Center" Spacing="5">
                                                         <Label Classes="icon" Content="&#xe3EC;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
                                                         <Label Classes="h3" Content="Recibos" HorizontalAlignment="Center"></Label>
