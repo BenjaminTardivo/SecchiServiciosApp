@@ -91,4 +91,28 @@ public partial class MainViewModel : ObservableObject
         
         window.ShowDialog(owner);
     }
+    
+    [RelayCommand]
+    private void OpenReemisionWindow()
+    {
+        var window = _serviceProvider.GetRequiredService<ReemisonWindow>();
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+        
+        window.ShowDialog(owner);
+    }
+
+    [RelayCommand]
+    private void OpenImprimirWindow()
+    {
+        var window = _serviceProvider.GetRequiredService<ImprimirRecibosWindow>();
+        
+        var owner = App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+            ? desktop.MainWindow
+            : null;
+
+        window.ShowDialog(owner);
+    }
 }

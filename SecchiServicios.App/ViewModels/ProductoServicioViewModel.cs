@@ -25,8 +25,10 @@ public partial class ProductoServicioViewModel : ObservableObject
     //Coleccion bindeada al grid
     public ObservableCollection<ProductoServicio> PyS { get; set; } = new();
     private List<ProductoServicio> _originalPyS = new();
-  
+
     public ObservableCollection<ProductoServicio> ModifiedPyS { get; set; } = new();
+
+    public FilterViewModel Filter { get; }
 
 
     private IList<object> _selectedPyS = new List<object>();
@@ -47,13 +49,42 @@ public partial class ProductoServicioViewModel : ObservableObject
     public ProductoServicioViewModel(IRepository<ProductoServicio> productoServicioRepository, Func<CrearProductoServicioWindow> crearProductoServicioWindowFactory,
         Func<int, DeleteConfirmationWindow> eliminarWindowFactory)
     {
-        _productoServicioRepository =  productoServicioRepository;
+        _productoServicioRepository = productoServicioRepository;
         _crearProductoServicioWindowFactory = crearProductoServicioWindowFactory;
         _eliminarWindowFactory = eliminarWindowFactory;
-        
+
+        Filter = new FilterViewModel(new[]
+        {
+            new FilterPropertyInfo { DisplayName = "Nombre", PropertyPath = "Nombre", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Descripcion", PropertyPath = "Descripcion", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Importe", PropertyPath = "Importe", PropertyType = FilterPropertyType.Numeric },
+            new FilterPropertyInfo { DisplayName = "Tipo", PropertyPath = "Tipo", PropertyType = FilterPropertyType.String },
+        });
+
+        Filter.OnFilterApplied += ApplyFilter;
+        Filter.OnFilterCleared += ClearFilter;
+
         ModifiedPyS.CollectionChanged += (_, __) => OnPropertyChanged(nameof(CanDelete));
 
         _ = LoadPyS();
+    }
+
+    private void ApplyFilter()
+    {
+        PyS.Clear();
+        foreach (var ps in _originalPyS.Where(p => Filter.MatchesFilter(p)))
+        {
+            PyS.Add(ps);
+        }
+    }
+
+    private void ClearFilter()
+    {
+        PyS.Clear();
+        foreach (var ps in _originalPyS)
+        {
+            PyS.Add(ps);
+        }
     }
 
     private async Task LoadPyS()

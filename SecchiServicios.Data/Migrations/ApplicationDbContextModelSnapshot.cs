@@ -33,6 +33,10 @@ namespace SecchiServicios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Vendedor")
                         .IsRequired()
                         .HasColumnType("TEXT");

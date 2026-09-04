@@ -8,7 +8,7 @@
         x:Class="SecchiServicios.App.MainWindow"
         x:DataType="vm:MainViewModel"
         Title="SecchiServicios - Facturacion">
-        <ScrollViewer Background="{DynamicResource PrimaryBackgroundGradient}">
+        <ScrollViewer Background="{DynamicResource PrimaryBackgroundGradient}" VerticalAlignment="Center">
                 <StackPanel>
                         
                         <!-- Recibos -->
@@ -22,13 +22,13 @@
                                                         <Label Classes="h3" Content="Recibos" HorizontalAlignment="Center"></Label>
                                                 </StackPanel>
                                         </Button>
-                                        <Button Classes="tile">
+                                        <Button Classes="tile" Command="{Binding OpenImprimirWindowCommand}">
                                                 <StackPanel HorizontalAlignment="Center" Spacing="5">
                                                         <Label HorizontalAlignment="Center" Classes="icon" Content="&#xE00C;" FontSize="50" Padding="5 0 0 0"></Label>
-                                                        <Label Classes="h3" Content="Listado de recibos" HorizontalAlignment="Center"></Label>
+                                                        <Label Classes="h3" Content="Imprimir recibos" HorizontalAlignment="Center"></Label>
                                                 </StackPanel>
                                         </Button>
-                                        <Button Classes="tile">
+                                        <Button Classes="tile" Command="{Binding OpenReemisionWindowCommand}">
                                                 <StackPanel HorizontalAlignment="Center" Spacing="5">
                                                         <Label Classes="icon" Content="&#xe232;" FontSize="50" Padding="5 0 0 0" HorizontalAlignment="Center"></Label>
                                                         <Label Classes="h3" Content="Reemision de recibos" HorizontalAlignment="Center"></Label>

@@ -28,6 +28,8 @@ public partial class RecibosViewModel : ObservableObject
     private List<Recibo> _originalRecibos = new();
 
     public ObservableCollection<Recibo> ModifiedRecibos { get; set; } = new();
+
+    public FilterViewModel Filter { get; }
     
     private IList<object> _selectedRecibos = new List<object>();
     
@@ -44,20 +46,49 @@ public partial class RecibosViewModel : ObservableObject
     public bool CanDelete => SelectedRecibos.Count >= 1;
 
     
-    public RecibosViewModel(IRepository<Recibo> reciboRepository, Func<CrearReciboWindow> crearReciboWindowFactory, 
+    public RecibosViewModel(IRepository<Recibo> reciboRepository, Func<CrearReciboWindow> crearReciboWindowFactory,
         Func<int, DeleteConfirmationWindow> eliminarReciboWindowFactory, ReciboService reciboService)
     {
         _reciboRepository = reciboRepository;
         _crearReciboWindowFactory = crearReciboWindowFactory;
         _eliminarReciboWindowFactory = eliminarReciboWindowFactory;
         _reciboService = reciboService;
-        
+
+        Filter = new FilterViewModel(new[]
+        {
+            new FilterPropertyInfo { DisplayName = "Cliente", PropertyPath = "Cliente.Nombre", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Producto/Servicio", PropertyPath = "ProductoServicio.Nombre", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Fecha", PropertyPath = "Fecha", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Monto", PropertyPath = "Total", PropertyType = FilterPropertyType.Numeric },
+        });
+
+        Filter.OnFilterApplied += ApplyFilter;
+        Filter.OnFilterCleared += ClearFilter;
+
         ModifiedRecibos.CollectionChanged += (_, __) =>
         {
             OnPropertyChanged(nameof(CanDelete));
         };
-        
+
         _ = LoadRecibos();
+    }
+
+    private void ApplyFilter()
+    {
+        Recibos.Clear();
+        foreach (var recibo in _originalRecibos.Where(r => Filter.MatchesFilter(r)))
+        {
+            Recibos.Add(recibo);
+        }
+    }
+
+    private void ClearFilter()
+    {
+        Recibos.Clear();
+        foreach (var recibo in _originalRecibos)
+        {
+            Recibos.Add(recibo);
+        }
     }
 
     public async Task LoadRecibos()

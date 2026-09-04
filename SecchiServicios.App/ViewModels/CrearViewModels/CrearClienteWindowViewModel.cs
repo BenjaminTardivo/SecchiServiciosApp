@@ -15,6 +15,7 @@ public partial class CrearClienteWindowViewModel : ObservableObject
     [ObservableProperty] private string nombre;
     [ObservableProperty] private int dni;
     [ObservableProperty] private string vendedor;
+    [ObservableProperty] private string telefono;
     [ObservableProperty] private string calle;
     [ObservableProperty] private int altura;
     [ObservableProperty] private Provincias? provinciaSeleccionada;
@@ -48,6 +49,7 @@ public partial class CrearClienteWindowViewModel : ObservableObject
         var newCliente = new Cliente()
         {
             Nombre = nombre,
+            Telefono = telefono,
             DNI = dni,
             Direccion = newDireccion,
             Vendedor = vendedor,

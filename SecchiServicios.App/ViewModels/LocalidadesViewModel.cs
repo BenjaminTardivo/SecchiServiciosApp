@@ -27,6 +27,8 @@ public partial class LocalidadesViewModel : ObservableObject
     private List<Localidad> _originalLocalidades;
 
     public ObservableCollection<Localidad> ModifiedLocalidades { get; set; } = new();
+
+    public FilterViewModel Filter { get; }
     
     private IList<object> _selectedLocalidades = new List<object>();
 
@@ -42,12 +44,22 @@ public partial class LocalidadesViewModel : ObservableObject
     
     public bool CanDelete => SelectedLocalidades.Count >= 1;
 
-    public LocalidadesViewModel(IRepository<Localidad> localidadRepository,  Func<int, DeleteConfirmationWindow> eliminarWindowFactory, 
+    public LocalidadesViewModel(IRepository<Localidad> localidadRepository, Func<int, DeleteConfirmationWindow> eliminarWindowFactory,
         Func<CrearLocalidadWindow> crearLocalidadWindowFactory)
     {
         _localidadRepository = localidadRepository;
         _eliminarWindowFactory = eliminarWindowFactory;
         _crearLocalidadWindowFactory = crearLocalidadWindowFactory;
+
+        Filter = new FilterViewModel(new[]
+        {
+            new FilterPropertyInfo { DisplayName = "Nombre", PropertyPath = "Nombre", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "CP", PropertyPath = "CodigoPostal", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Provincia", PropertyPath = "Provincia", PropertyType = FilterPropertyType.String },
+        });
+
+        Filter.OnFilterApplied += ApplyFilter;
+        Filter.OnFilterCleared += ClearFilter;
 
         ModifiedLocalidades.CollectionChanged += (_, __) =>
         {
@@ -55,6 +67,24 @@ public partial class LocalidadesViewModel : ObservableObject
         };
 
         _ = LoadLocalidades();
+    }
+
+    private void ApplyFilter()
+    {
+        Localidades.Clear();
+        foreach (var localidad in _originalLocalidades.Where(l => Filter.MatchesFilter(l)))
+        {
+            Localidades.Add(localidad);
+        }
+    }
+
+    private void ClearFilter()
+    {
+        Localidades.Clear();
+        foreach (var localidad in _originalLocalidades)
+        {
+            Localidades.Add(localidad);
+        }
     }
 
     private async Task LoadLocalidades()

@@ -19,6 +19,7 @@
             <StackPanel Margin="20" Spacing="12">
                 <TextBlock Text="Crear Nuevo Cliente" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
                 <TextBox Watermark="Nombre" Text="{Binding Nombre}"></TextBox>
+                <TextBox Watermark="Telefono" Text="{Binding Telefono}"></TextBox>
                 <TextBox Watermark="DNI" Text="{Binding Dni}"></TextBox>
                 <TextBox Watermark="Vendedor" Text="{Binding Vendedor}"></TextBox>
                 <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding condicionIvaList}" 

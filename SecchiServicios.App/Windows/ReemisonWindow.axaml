@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SecchiServicios.App.Windows.ReemisonWindow"
+        x:DataType="vm:ReemisionViewModel"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        Title="ReemisonWindow">
+    <Grid RowDefinitions="Auto, *, Auto, Auto" Margin="20">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+                  ItemsSource="{Binding Recibos}" CanUserResizeColumns="True" CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Servicio" Binding="{Binding ProductoServicio.Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Monto" Binding="{Binding Total}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+            
+            <TextBlock Text="Desde:" FontWeight="Bold" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
+            <DatePicker SelectedDate="{Binding DateFrom}"
+                        SelectedDateChanged="DatePicker_OnSelectedDateFromChanged" MonthFormat="MM" DayFormat="dd" YearFormat="yyyy"></DatePicker>
+            <TextBlock Text="Hasta:" FontWeight="Bold" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
+            <DatePicker SelectedDate="{Binding DateTo}"
+                        SelectedDateChanged="DatePicker_OnSelectedDateToChanged"
+                MonthFormat="MM" DayFormat="dd" YearFormat="yyyy"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="40">
+            <Button Grid.Row="3" Classes="Normal" Margin="0 20 0 0" HorizontalAlignment="Center" Width="150" Command="{Binding FilterRecibosCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe220;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Mostrar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Grid.Row="3" Classes="Normal" Margin="0 20 0 0" HorizontalAlignment="Center" Width="150" Command="{Binding ReemitirCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xe036;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Reemitir" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,5 +1,7 @@
 ﻿using Avalonia;
 using System;
+using System.Globalization;
+using QuestPDF.Infrastructure;
 using SQLitePCL;
 
 namespace SecchiServicios.App;
@@ -13,6 +15,13 @@ class Program
     public static void Main(string[] args)
     {
         Batteries.Init();
+
+        CultureInfo culture = new CultureInfo("es-AR");
+        
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+        QuestPDF.Settings.License = LicenseType.Community;
         
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);

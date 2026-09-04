@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SecchiServicios.App.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SecchiServicios.App.Windows.ConfirmarReemision"
+        x:DataType="vm:ConfirmarReemisionViewModel"
+        Background="{DynamicResource PrimaryBackgroundGradient}"
+        Title="ConfirmarReemision">
+    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+                  CanUserResizeColumns="True" CanUserSortColumns="True"
+                  ItemsSource="{Binding Recibos}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Servicio" Binding="{Binding ProductoServicio.Nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Monto" Binding="{Binding Total}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        
+            <Button Grid.Row="3" Classes="Normal" Margin="0 20 0 0" HorizontalAlignment="Center" Command="{Binding ConfirmCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon" Content="&#xEadc;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3" Content="Confirmar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+    </Grid>
+</Window>

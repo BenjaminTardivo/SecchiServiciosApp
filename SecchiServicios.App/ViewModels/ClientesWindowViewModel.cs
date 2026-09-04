@@ -29,6 +29,8 @@ public partial class ClientesWindowViewModel : ObservableObject
     private List<Cliente> _originalClientes = new();
 
     public ObservableCollection<Cliente> ModifiedClientes { get; set; } = new();
+
+    public FilterViewModel Filter { get; }
     
     private IList<object> _selectedClientes = new List<object>();
 
@@ -47,13 +49,25 @@ public partial class ClientesWindowViewModel : ObservableObject
     public bool CanDelete => SelectedClientes.Count >= 1;
     
     
-    public ClientesWindowViewModel(IRepository<Cliente> clienteRepository, Func<CrearClienteWindow> crearClienteWindowFactory, 
+    public ClientesWindowViewModel(IRepository<Cliente> clienteRepository, Func<CrearClienteWindow> crearClienteWindowFactory,
         Func<int, DeleteConfirmationWindow> eliminarWindowFactory)
     {
         _clienteRepository = clienteRepository;
         _crearClienteWindowFactory = crearClienteWindowFactory;
         _eliminarWindowFactory = eliminarWindowFactory;
-        
+
+        Filter = new FilterViewModel(new[]
+        {
+            new FilterPropertyInfo { DisplayName = "DNI", PropertyPath = "DNI", PropertyType = FilterPropertyType.Numeric },
+            new FilterPropertyInfo { DisplayName = "Nombre", PropertyPath = "Nombre", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Direccion", PropertyPath = "Direccion.DireccionCompleta", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Telefono", PropertyPath = "Telefono", PropertyType = FilterPropertyType.String },
+            new FilterPropertyInfo { DisplayName = "Vendedor", PropertyPath = "Vendedor", PropertyType = FilterPropertyType.String },
+        });
+
+        Filter.OnFilterApplied += ApplyFilter;
+        Filter.OnFilterCleared += ClearFilter;
+
         ModifiedClientes.CollectionChanged += (_, __) =>
         {
             OnPropertyChanged(nameof(CanDelete));
@@ -61,6 +75,24 @@ public partial class ClientesWindowViewModel : ObservableObject
 
         _ = LoadClientes();
 
+    }
+
+    private void ApplyFilter()
+    {
+        Clientes.Clear();
+        foreach (var cliente in _originalClientes.Where(c => Filter.MatchesFilter(c)))
+        {
+            Clientes.Add(cliente);
+        }
+    }
+
+    private void ClearFilter()
+    {
+        Clientes.Clear();
+        foreach (var cliente in _originalClientes)
+        {
+            Clientes.Add(cliente);
+        }
     }
 
     private async Task LoadClientes()
@@ -101,6 +133,7 @@ public partial class ClientesWindowViewModel : ObservableObject
                     Id = cliente.Id,
                     DNI = cliente.DNI,
                     Nombre = cliente.Nombre,
+                    Telefono = cliente.Telefono,
                     Vendedor = cliente.Vendedor,
                     CondicionIva = cliente.CondicionIva,
                     Direccion = new Direccion

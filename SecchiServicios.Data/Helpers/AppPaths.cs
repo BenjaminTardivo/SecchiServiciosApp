@@ -34,4 +34,16 @@ public class AppPaths
     {
         return Path.Combine(GetAppDataFolder(), filename);
     }
+    
+    public static String GetRecibosPdfDataFolder()
+    {
+        string envPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Recibos - SecchiServicios",
+            (DateTime.Today.Date).ToString("dd.MM.yyy"));
+
+        if (!Directory.Exists(envPath))
+        {
+            Directory.CreateDirectory(envPath);
+        }
+        return envPath;
+    }
 }

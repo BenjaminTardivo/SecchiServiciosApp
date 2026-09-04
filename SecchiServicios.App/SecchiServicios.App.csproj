@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SecchiServicios.Core\SecchiServicios.Core.csproj" />
     <ProjectReference Include="..\SecchiServicios.Data\SecchiServicios.Data.csproj" />
+    <ProjectReference Include="..\SecchiServicios.Pdf\SecchiServicios.Pdf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -14,6 +15,7 @@ using SecchiServicios.Data.Data;
 using SecchiServicios.Data.Interfaces;
 using SecchiServicios.Data.Repositories;
 using SecchiServicios.Data.Services;
+using SecchiServicios.Pdf.Services;
 
 namespace SecchiServicios.App;
 
@@ -41,6 +43,7 @@ public partial class App : Application
         
         //Services
         collection.AddScoped<ReciboService>();
+        collection.AddScoped<ReciboPdfService>();
         
         // Repos
         collection.AddScoped<IRepository<Cliente>, ClienteRepository>();
@@ -61,6 +64,8 @@ public partial class App : Application
         collection.AddTransient<CrearLocalidadViewModel>();
         collection.AddTransient<RecibosViewModel>();
         collection.AddTransient<CrearReciboViewModel>();
+        collection.AddTransient<ReemisionViewModel>();
+        collection.AddTransient<ImprimirRecibosViewModel>();
         
         // Windows
         collection.AddSingleton<MainWindow>();
@@ -75,6 +80,9 @@ public partial class App : Application
         collection.AddTransient<CrearLocalidadWindow>();
         collection.AddTransient<RecibosWindow>();
         collection.AddTransient<CrearReciboWindow>();
+        collection.AddTransient<ReemisonWindow>();
+        collection.AddTransient<ConfirmarReemision>();
+        collection.AddTransient<ImprimirRecibosWindow>();
 
         //factories
         collection.AddTransient<Func<CrearClienteWindow>>(sp =>
@@ -90,6 +98,13 @@ public partial class App : Application
             () => sp.GetRequiredService<CrearLocalidadWindow>());
         collection.AddTransient<Func<CrearReciboWindow>>(sp =>
             () => sp.GetRequiredService<CrearReciboWindow>());
+        collection.AddTransient<Func<List<Recibo>, ConfirmarReemision>>(sp => recibos =>
+        {
+            var vm = new ConfirmarReemisionViewModel(sp.GetRequiredService<ReciboService>(),
+                sp.GetRequiredService<IRepository<Recibo>>(), recibos);
+
+            return new ConfirmarReemision(vm);
+        });
         
         
         ServiceProvider = collection.BuildServiceProvider();

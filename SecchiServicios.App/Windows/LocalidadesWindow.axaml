@@ -12,8 +12,28 @@
     <Window.Resources>
         <converters:CamelCaseToWordsConverter x:Key="CamelCaseConverter"/>
     </Window.Resources>
-    <Grid RowDefinitions="Auto, *, Auto" Margin="20">
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="20">
+
+        <Border Grid.Row="0" IsVisible="{Binding Filter.IsFilterVisible}"
+                CornerRadius="6" BorderThickness="1"
+                BorderBrush="{DynamicResource PrimaryButtonForeground}"
+                Padding="10" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <ComboBox ItemsSource="{Binding Filter.FilterableProperties}"
+                          SelectedItem="{Binding Filter.SelectedProperty}"
+                          DisplayMemberBinding="{Binding DisplayName}"
+                          Width="150" PlaceholderText="Propiedad"/>
+                <ComboBox ItemsSource="{Binding Filter.AvailableOperators}"
+                          SelectedItem="{Binding Filter.SelectedOperator}"
+                          Width="100" PlaceholderText="Operador"/>
+                <TextBox Text="{Binding Filter.FilterValue}"
+                         Width="200" Watermark="Valor..."/>
+                <Button Classes="Normal" Command="{Binding Filter.ApplyFilterCommand}" Content="Aplicar"/>
+                <Button Classes="alt" Command="{Binding Filter.ClearFilterCommand}" Content="Limpiar"/>
+            </StackPanel>
+        </Border>
+
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" SelectionMode="Extended"
                   CanUserResizeColumns="True" CanUserSortColumns="True"
                   ItemsSource="{Binding Localidades}"
                   SelectionChanged="DataGrid_OnSelectionChanged">
@@ -25,7 +45,7 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
             <Button Classes="Normal" Command="{Binding NewLocalidadCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <Label Classes="icon" Content="&#xe2F8;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
@@ -47,7 +67,7 @@
                 </StackPanel>
             </Button>
             
-            <Button Classes="Normal">
+            <Button Classes="Normal" Command="{Binding Filter.ToggleFilterCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <Label Classes="icon" Content="&#xe432;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <Label Classes="h3" Content="Filtrar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>

@@ -43,4 +43,5 @@
         <Setter Property="Foreground" Value="{DynamicResource PrimarHoverButtonText}"></Setter>
     </Style>
     
+    
 </Styles>
