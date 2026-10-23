@@ -8,18 +8,25 @@ namespace SecchiServicios.Pdf.Documents;
 
 public class ReciboDocument : IDocument
 {
-    private readonly ReciboDocumentModel _data;
+    private readonly IReadOnlyList<ReciboDocumentModel> _recibos;
 
     public ReciboDocument(ReciboDocumentModel data)
+        : this(new List<ReciboDocumentModel> { data })
     {
-        _data = data;
+    }
+
+    public ReciboDocument(IReadOnlyList<ReciboDocumentModel> recibos)
+    {
+        _recibos = recibos;
     }
 
     public DocumentMetadata GetMetadata()
     {
         return new DocumentMetadata
         {
-            Title = $"Recibo {_data.NroRecibo}",
+            Title = _recibos.Count == 1
+                ? $"Recibo {_recibos[0].NroRecibo}"
+                : $"Recibos ({_recibos.Count})",
             Author = "SECCHI COMUNICACIONES",
             Subject = "Recibo"
         };
@@ -27,79 +34,82 @@ public class ReciboDocument : IDocument
 
     public void Compose(IDocumentContainer container)
     {
-        container.Page(page =>
+        foreach (var recibo in _recibos)
         {
-            page.Size(PageSizes.A5.Landscape());
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A5.Landscape());
 
-            page.Margin(30);
+                page.Margin(30);
 
-            page.DefaultTextStyle(text =>
-                text.FontSize(9)
-                    .FontFamily("Arial"));
+                page.DefaultTextStyle(text =>
+                    text.FontSize(9)
+                        .FontFamily("Arial"));
 
-            page.Content()
-                .Border(1)
-                .Padding(12)
-                .Column(column =>
-                {
-                    // ==========================
-                    // HEADER
-                    // ==========================
+                page.Content()
+                    .Border(1)
+                    .Padding(12)
+                    .Column(column =>
+                    {
+                        // ==========================
+                        // HEADER
+                        // ==========================
 
-                    column.Item()
-                        .Element(ComposeHeader);
+                        column.Item()
+                            .Element(c => ComposeHeader(c, recibo));
 
-                    // ==========================
-                    // DATOS DEL CLIENTE
-                    // ==========================
+                        // ==========================
+                        // DATOS DEL CLIENTE
+                        // ==========================
 
-                    column.Item()
-                        .PaddingTop(8)
-                        .Element(ComposeCliente);
+                        column.Item()
+                            .PaddingTop(8)
+                            .Element(c => ComposeCliente(c, recibo));
 
-                    // Línea separadora
-                    column.Item()
-                        .PaddingTop(8)
-                        .LineHorizontal(1);
+                        // Línea separadora
+                        column.Item()
+                            .PaddingTop(8)
+                            .LineHorizontal(1);
 
-                    // ==========================
-                    // MONTO EN LETRAS
-                    // ==========================
+                        // ==========================
+                        // MONTO EN LETRAS
+                        // ==========================
 
-                    column.Item()
-                        .PaddingTop(8)
-                        .Element(ComposeMontoLetras);
+                        column.Item()
+                            .PaddingTop(8)
+                            .Element(c => ComposeMontoLetras(c, recibo));
 
-                    // ==========================
-                    // CONCEPTO
-                    // ==========================
+                        // ==========================
+                        // CONCEPTO
+                        // ==========================
 
-                    column.Item()
-                        .PaddingTop(16)
-                        .Element(ComposeConcepto);
+                        column.Item()
+                            .PaddingTop(16)
+                            .Element(c => ComposeConcepto(c, recibo));
 
-                    // ==========================
-                    // ESPACIO
-                    // ==========================
+                        // ==========================
+                        // ESPACIO
+                        // ==========================
 
-                    column.Item()
-                        .Height(25);
+                        column.Item()
+                            .Height(25);
 
-                    // ==========================
-                    // TOTAL
-                    // ==========================
+                        // ==========================
+                        // TOTAL
+                        // ==========================
 
-                    column.Item()
-                        .Element(ComposeTotal);
-                });
-        });
+                        column.Item()
+                            .Element(c => ComposeTotal(c, recibo));
+                    });
+            });
+        }
     }
 
     // ============================================================
     // HEADER
     // ============================================================
 
-    private void ComposeHeader(IContainer container)
+    private void ComposeHeader(IContainer container, ReciboDocumentModel data)
     {
         container.Row(row =>
         {
@@ -177,7 +187,7 @@ public class ReciboDocument : IDocument
 
                             row.RelativeItem()
                                 .AlignRight()
-                                .Text(_data.NroRecibo.ToString("D10"))
+                                .Text(data.NroRecibo.ToString("D10"))
                                 .Bold();
                         });
 
@@ -191,7 +201,7 @@ public class ReciboDocument : IDocument
 
                             row.RelativeItem()
                                 .AlignRight()
-                                .Text(_data.Fecha.ToString("d.M.yyyy"))
+                                .Text(data.Fecha.ToString("d.M.yyyy"))
                                 .Bold();
                         });
                 });
@@ -202,17 +212,17 @@ public class ReciboDocument : IDocument
     // CLIENTE
     // ============================================================
 
-    private void ComposeCliente(IContainer container)
+    private void ComposeCliente(IContainer container, ReciboDocumentModel data)
     {
         container.Column(column =>
         {
-            ComposeClienteRow(column, "Sr/es:", _data.Cliente);
+            ComposeClienteRow(column, "Sr/es:", data.Cliente);
 
-            ComposeClienteRow(column, "Domicilio:", _data.Domicilio);
+            ComposeClienteRow(column, "Domicilio:", data.Domicilio);
 
-            ComposeClienteRow(column, "Localidad:", _data.Localidad);
+            ComposeClienteRow(column, "Localidad:", data.Localidad);
 
-            ComposeClienteRow(column, "Teléfono:", _data.Telefono);
+            ComposeClienteRow(column, "Teléfono:", data.Telefono);
 
             column.Item()
                 .Row(row =>
@@ -223,7 +233,7 @@ public class ReciboDocument : IDocument
 
                     row.RelativeItem()
                         .PaddingLeft(8)
-                        .Text(_data.CondicionIva);
+                        .Text(data.CondicionIva);
 
                     row.AutoItem()
                         .Text("CUIT/CUIL:")
@@ -258,13 +268,13 @@ public class ReciboDocument : IDocument
     // MONTO EN LETRAS
     // ============================================================
 
-    private void ComposeMontoLetras(IContainer container)
+    private void ComposeMontoLetras(IContainer container, ReciboDocumentModel data)
     {
         container.Text(text =>
         {
             text.Span("Recibí el importe de: ");
 
-            text.Span(_data.MontoLetras.ToLower())
+            text.Span(data.MontoLetras.ToLower())
                 .Bold();
 
             text.Span(" .-");
@@ -275,7 +285,7 @@ public class ReciboDocument : IDocument
     // CONCEPTO
     // ============================================================
 
-    private void ComposeConcepto(IContainer container)
+    private void ComposeConcepto(IContainer container, ReciboDocumentModel data)
     {
         container.Column(column =>
         {
@@ -294,17 +304,17 @@ public class ReciboDocument : IDocument
 
                     // Servicio
                     row.RelativeItem()
-                        .Text(_data.Servicio);
+                        .Text(data.Servicio);
 
                     // Precio unitario
                     row.ConstantItem(90)
                         .AlignRight()
-                        .Text(FormatearMonto(_data.MontoNumerico));
+                        .Text(FormatearMonto(data.MontoNumerico));
 
                     // Total
                     row.ConstantItem(90)
                         .AlignRight()
-                        .Text(FormatearMonto(_data.MontoNumerico));
+                        .Text(FormatearMonto(data.MontoNumerico));
                 });
         });
     }
@@ -313,7 +323,7 @@ public class ReciboDocument : IDocument
     // TOTAL
     // ============================================================
 
-    private void ComposeTotal(IContainer container)
+    private void ComposeTotal(IContainer container, ReciboDocumentModel data)
     {
         container.Row(row =>
         {
@@ -327,7 +337,7 @@ public class ReciboDocument : IDocument
 
             row.ConstantItem(90)
                 .AlignRight()
-                .Text(FormatearMonto(_data.MontoNumerico))
+                .Text(FormatearMonto(data.MontoNumerico))
                 .Bold()
                 .FontSize(10);
         });

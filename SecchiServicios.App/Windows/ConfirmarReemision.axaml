@@ -11,7 +11,8 @@
     <Grid RowDefinitions="Auto, *, Auto" Margin="20">
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
                   CanUserResizeColumns="True" CanUserSortColumns="True"
-                  ItemsSource="{Binding Recibos}">
+                  ItemsSource="{Binding Recibos}"
+                  SelectionChanged="DataGrid_OnSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nombre}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Servicio" Binding="{Binding ProductoServicio.Nombre}"></DataGridTextColumn>
@@ -21,11 +22,25 @@
         </DataGrid>
         
         
-            <Button Grid.Row="3" Classes="Normal" Margin="0 20 0 0" HorizontalAlignment="Center" Command="{Binding ConfirmCommand}">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0 20 0 0">
+            <TextBlock Text="Fecha Reemision:" FontWeight="Bold" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
+            <DatePicker SelectedDate="{Binding FechaReemision}"
+                        SelectedDateChanged="DatePicker_OnSelectedDateChanged"
+                        MonthFormat="MM" DayFormat="dd" YearFormat="yyyy"/>
+            
+            <Button Classes="Normal" Command="{Binding ConfirmCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <Label Classes="icon" Content="&#xEadc;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <Label Classes="h3" Content="Confirmar" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                 </StackPanel>
             </Button>
+            
+            <Button Classes="danger" Command="{Binding QuitarRecibosCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4A6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Borrar Recibo" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

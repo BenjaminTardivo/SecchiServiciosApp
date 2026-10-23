@@ -1,3 +1,4 @@
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -16,19 +17,28 @@ public partial class ImprimirRecibosWindow : Window
     
     private void DatePicker_OnSelectedDateFromChanged(object? sender, DatePickerSelectedValueChangedEventArgs e)
     {
-        if (DataContext is not ReemisionViewModel vm)
+        if (DataContext is not ImprimirRecibosViewModel vm)
             return;
-        
+
         if (sender is DatePicker datePicker)
             vm.DateFrom = datePicker.SelectedDate.Value.DateTime;
     }
-    
+
     private void DatePicker_OnSelectedDateToChanged(object? sender, DatePickerSelectedValueChangedEventArgs e)
     {
-        if (DataContext is not ReemisionViewModel vm)
+        if (DataContext is not ImprimirRecibosViewModel vm)
             return;
-        
+
         if (sender is DatePicker datePicker)
             vm.DateTo = datePicker.SelectedDate.Value.DateTime;
+    }
+    
+    private void DataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is not ImprimirRecibosViewModel vm)
+            return;
+        
+        if (sender is DataGrid grid)
+            vm.SelectedRecibos = grid.SelectedItems.Cast<object>().ToList();
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using SecchiServicios.Core.Models;
 using SecchiServicios.Data.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,6 +20,18 @@ public partial class ImprimirRecibosViewModel : ObservableObject
 
     public ObservableCollection<Recibo> Recibos { get; set; } = new();
     
+    private IList<object> _selectedRecibos = new List<object>();
+    
+    public IList<object> SelectedRecibos
+    {
+        get => _selectedRecibos;
+        set
+        {
+            _selectedRecibos = value;
+            OnPropertyChanged();
+        }
+    }
+
     private List<Recibo> _recibos { get; set; }
 
     public DateTimeOffset? _dateFrom;
@@ -31,7 +45,7 @@ public partial class ImprimirRecibosViewModel : ObservableObject
             OnPropertyChanged();
         }
     }
-    
+
     public DateTimeOffset? _dateTo;
 
     public DateTimeOffset? DateTo
@@ -51,7 +65,7 @@ public partial class ImprimirRecibosViewModel : ObservableObject
         _reciboService = reciboService;
         _pdfService = pdfService;
     }
-    
+
     [RelayCommand]
     public async void FilterRecibos()
     {
@@ -59,27 +73,51 @@ public partial class ImprimirRecibosViewModel : ObservableObject
         {
             return;
         }
-        
+
         var dateFrom = _dateFrom.Value.DateTime;
 
         var recibos = await _reciboService.GetRecibosByDatePeriod(dateFrom, _dateTo.Value.DateTime);
-        
+
         Recibos.Clear();
 
         foreach (var recibo in recibos)
         {
             Recibos.Add(recibo);
         }
-        
+
         _recibos = recibos;
     }
 
     [RelayCommand]
-    public async void ImprimirRecibos()
+    public void ImprimirRecibos()
     {
-        foreach (var recibo in _recibos)
+        if (_recibos == null || _recibos.Count == 0)
+            return;
+
+        var path = _pdfService.GenerarPdfMultipage(_recibos);
+
+        Process.Start(new ProcessStartInfo(path)
         {
-            _pdfService.GenerarPdf(recibo);
+            UseShellExecute = true
+        });
+    }
+    
+    [RelayCommand]
+    public async void QuitarRecibos()
+    {
+        var cantidad = SelectedRecibos.Count;
+        
+        if  (cantidad == 0)
+            return;
+
+        var recibosAQuitar = SelectedRecibos.Cast<Recibo>().ToList();
+
+        foreach (var recibo in recibosAQuitar)
+        {
+            Recibos.Remove(recibo);
+            _recibos.RemoveAll(r => r.Id == recibo.Id);
         }
+        
+        SelectedRecibos.Clear();
     }
 }

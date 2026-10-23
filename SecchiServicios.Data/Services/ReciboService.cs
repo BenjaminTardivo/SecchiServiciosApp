@@ -58,7 +58,8 @@ public class ReciboService
     public async Task<List<Recibo>> GetRecibosByDatePeriod(DateTime dateFrom, DateTime dateTo)
     {
         var recibos = await _reciboRepository.Query().Include(r => r.ProductoServicio)
-            .Include(r => r.Cliente)
+            .Include(r => r.Cliente).ThenInclude(c => c.Direccion)
+            .Include(r => r.Cliente).ThenInclude(c => c.Localidad)
             .Where(r => r.Fecha >= dateFrom && r.Fecha <= dateTo).ToListAsync();
         return recibos;
     }
@@ -84,6 +85,7 @@ public class ReciboService
 
             var newRecibo = new Recibo
             {
+                Id = recibo.Id,
                 Fecha = DateTime.Now,
                 
                 ProductoServicioId = servicio.Id,

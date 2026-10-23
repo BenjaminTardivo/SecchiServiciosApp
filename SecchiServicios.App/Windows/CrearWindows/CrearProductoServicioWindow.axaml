@@ -19,6 +19,7 @@
                 <TextBlock Text="Crear Nuevo Producto/Servicio" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
                 <TextBox Watermark="Nombre" Text="{Binding Nombre}"/>
                 <TextBox Watermark="Descripcion" Text="{Binding Descripcion}"/>
+                <TextBlock Text="Importe" FontSize="14" FontWeight="DemiBold" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
                 <TextBox Watermark="Importe" Text="{Binding Importe}"/>
                 <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding tipo}"
                           SelectedItem="{Binding TipoSeleccionado}">

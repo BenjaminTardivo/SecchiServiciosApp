@@ -10,7 +10,8 @@
         Title="ImprimirRecibos">
     <Grid RowDefinitions="Auto, *, Auto, Auto" Margin="20">
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" SelectionMode="Extended"
-                  ItemsSource="{Binding Recibos}" CanUserResizeColumns="True" CanUserSortColumns="True">
+                  ItemsSource="{Binding Recibos}" CanUserResizeColumns="True" CanUserSortColumns="True"
+                  SelectionChanged="DataGrid_OnSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente.Nombre}"></DataGridTextColumn>
@@ -43,6 +44,13 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <Label Classes="icon" Content="&#xe036;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                     <Label Classes="h3" Content="Imprimir" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                </StackPanel>
+            </Button>
+            
+            <Button Classes="danger" Command="{Binding QuitarRecibosCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <Label Classes="icon danger" Content="&#xe4A6;" FontSize="30" Padding="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    <Label Classes="h3 danger" Content="Quitar Recibo" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                 </StackPanel>
             </Button>
         </StackPanel>

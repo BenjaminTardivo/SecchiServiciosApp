@@ -18,11 +18,18 @@
         <Border BorderBrush="{DynamicResource PrimaryButtonForeground}" Margin="20" BorderThickness="3" CornerRadius="6">
             <StackPanel Margin="20" Spacing="12">
                 <TextBlock Text="Crear Nuevo Cliente" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
-                <TextBox Watermark="Nombre" Text="{Binding Nombre}"></TextBox>
+                <TextBox Watermark="Nombre" Text="{Binding NombreCliente}"></TextBox>
                 <TextBox Watermark="Telefono" Text="{Binding Telefono}"></TextBox>
+                <TextBlock Text="DNI" FontSize="14" FontWeight="DemiBold" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
                 <TextBox Watermark="DNI" Text="{Binding Dni}"></TextBox>
+                
+                <AutoCompleteBox Watermark="Localidad..." ItemsSource="{Binding Localidades}" 
+                                 SelectedItem="{Binding SelectedLocalidad}"
+                                 FilterMode="Contains"
+                                 ValueMemberBinding="{Binding Nombre}"/>
+                
                 <TextBox Watermark="Vendedor" Text="{Binding Vendedor}"></TextBox>
-                <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding condicionIvaList}" 
+                <ComboBox PlaceholderText="Condicion IVA" HorizontalAlignment="Stretch" ItemsSource="{Binding condicionIvaList}" 
                           SelectedItem="{Binding CondicionIva}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -32,6 +39,7 @@
                 </ComboBox>
                 <TextBlock Text="Direccion" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource PrimaryButtonForeground}"/>
                 <TextBox Watermark="Calle" Text="{Binding Calle}"></TextBox>
+                <TextBlock Text="Altura" FontSize="14" FontWeight="DemiBold" Foreground="{DynamicResource PrimaryButtonForeground}"></TextBlock>
                 <TextBox Watermark="Altura" Text="{Binding Altura}"></TextBox>
                 <AutoCompleteBox Watermark="Provincia" ItemsSource="{Binding provinciasList}"
                                  SelectedItem="{Binding ProvinciaSeleccionada}" FilterMode="Contains">

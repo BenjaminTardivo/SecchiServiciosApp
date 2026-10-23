@@ -44,6 +44,7 @@
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Direccion" Binding="{Binding Direccion.DireccionCompleta}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Telefono" Binding="{Binding Telefono}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Localidad" Binding="{Binding Localidad.Nombre}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Vendedor" Binding="{Binding Vendedor}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Condicion IVA" Binding="{Binding CondicionIva, Converter={StaticResource CamelCaseConverter}}"></DataGridTextColumn>
             </DataGrid.Columns>

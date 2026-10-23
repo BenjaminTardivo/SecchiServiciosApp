@@ -29,6 +29,9 @@ namespace SecchiServicios.Data.Migrations
                     b.Property<int>("DNI")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("LocalidadId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -42,6 +45,8 @@ namespace SecchiServicios.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocalidadId");
 
                     b.ToTable("Clientes");
                 });
@@ -122,6 +127,10 @@ namespace SecchiServicios.Data.Migrations
 
             modelBuilder.Entity("SecchiServicios.Core.Models.Cliente", b =>
                 {
+                    b.HasOne("SecchiServicios.Core.Models.Localidad", "Localidad")
+                        .WithMany()
+                        .HasForeignKey("LocalidadId");
+
                     b.OwnsOne("SecchiServicios.Core.Models.Direccion", "Direccion", b1 =>
                         {
                             b1.Property<int>("ClienteId")
@@ -151,6 +160,8 @@ namespace SecchiServicios.Data.Migrations
 
                     b.Navigation("Direccion")
                         .IsRequired();
+
+                    b.Navigation("Localidad");
                 });
 
             modelBuilder.Entity("SecchiServicios.Core.Models.Recibo", b =>

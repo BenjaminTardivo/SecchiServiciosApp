@@ -15,7 +15,7 @@ public class ReciboDocumentDataSource
             Cliente = recibo.Cliente.Nombre,
             Servicio = recibo.ProductoServicio.Nombre,
             Domicilio = recibo.Cliente.Direccion.DireccionCompleta,
-            Localidad = recibo.Cliente.Vendedor,
+            Localidad = recibo.Cliente.Localidad.Nombre,
             CondicionIva = recibo.Cliente.CondicionIva.ToString(),
             MontoNumerico = recibo.Total,
             Telefono = recibo.Cliente.Telefono,
